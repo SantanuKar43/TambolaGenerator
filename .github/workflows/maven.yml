@@ -3,11 +3,11 @@ name: Graal Java CI
 on:
   push:
     branches:
-      - "master"
+      - "main"
     tags:
       - 'v*'
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   build:
