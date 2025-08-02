@@ -4,16 +4,18 @@ The default generated card follows Housie or UK Bingo rules:
 - Each row contains five numbers and four blank spaces randomly distributed along the row. 
 - Numbers are apportioned by column (1–10, 11–20, 21–30, 31–40, 41–50, 51–60, 61–70, 71–80 and 81–90)
 
-The generator algorithm does it in 2 passes:
-- first marks cells randomly to be left empty
-- fills in random numbers in a columnwise manner in the cells not marked empty 
+The grid generation follows a two-pass algorithm:
+
+- Pass 1: For each row, it randomly marks a fixed number of cells (based on numsPerRow) as blanks, ensuring that at least one number remains per column.
+
+- Pass 2: It then fills the remaining (non-blank) cells column by column using unique random numbers from predefined ranges specific to each column, ensuring that values are sorted within the column.
 
 
 ![img.png](samplecard.png)
 
 References:
-https://en.wikipedia.org/wiki/Bingo_(British_version)
-https://en.wikipedia.org/wiki/Bingo_card
+- https://en.wikipedia.org/wiki/Bingo_(British_version)
+- https://en.wikipedia.org/wiki/Bingo_card
 
 #### Prerequisites
 
@@ -61,5 +63,19 @@ This is a simple CLI application to generate a Tambola card.
   -r, --rows=<rows>   Number of rows
                         Default: 3
   -V, --version       Print version information and exit.
+
+$ tambola-gen
+[[ ,  ,  , 31, 43, 59, 66,  , 81],
+[5, 15,  ,  , 49,  ,  , 71, 85],
+[ , 18, 29, 33,  ,  , 70, 72,  ]]
   
+$ tambola-gen --pretty
+.   17  .   36  .   56  63  .   83  
+.   .   .   38  46  .   64  75  86  
+7   .   23  39  .   .   .   77  88  
+
+1   15  23  31  .   .   62  .   .   
+6   17  .   38  44  .   .   .   82  
+8   .   27  .   .   56  67  76  .   
+
 ```
