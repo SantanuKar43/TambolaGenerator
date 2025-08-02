@@ -45,16 +45,21 @@ sudo cp ./target/tambola-gen /usr/local/bin/
 $ tambola-gen
 
 $ tambola-gen --help
-Usage: tambola-gen [-hV] [--csv] [--pretty] [-c=<cols>]
+Usage: tambola-gen [-hV] [--csv] [--pretty] [-c=<cols>] [-n=<count>]
                    [--numsPerRow=<numsPerRow>] [-r=<rows>]
 This is a simple CLI application to generate a Tambola card.
-  -c, --cols=<cols>   Number of columns, defaults to 9
+  -c, --cols=<cols>   Number of columns
+                        Default: 9
       --csv           CSV print
   -h, --help          Show this help message and exit.
+  -n=<count>          Number of cards to print
+                        Default: 1
       --numsPerRow=<numsPerRow>
-                      Numbers per row, defaults to 5
+                      Numbers per row
+                        Default: 5
       --pretty        Pretty print
-  -r, --rows=<rows>   Number of rows, defaults to 3
+  -r, --rows=<rows>   Number of rows
+                        Default: 3
   -V, --version       Print version information and exit.
-
+  
 ```
