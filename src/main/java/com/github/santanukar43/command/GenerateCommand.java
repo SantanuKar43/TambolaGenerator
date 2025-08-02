@@ -14,6 +14,7 @@ public class GenerateCommand implements Runnable {
     private static final String DEFAULT_ROWS = "3";
     private static final String DEFAULT_COLUMNS = "9";
     private static final String DEFAULT_NUMBERS_PER_ROW = "5";
+    public static final String TAB = "\t";
 
     @CommandLine.Option(names = "-n",
             description = "Number of cards to print",
@@ -26,6 +27,9 @@ public class GenerateCommand implements Runnable {
 
     @CommandLine.Option(names = "--csv", description = "CSV print")
     private boolean csv;
+
+    @CommandLine.Option(names = "--tsv", description = "TSV print")
+    private boolean tsv;
 
     @CommandLine.Option(names = {"-r",
             "--rows"},
@@ -64,7 +68,9 @@ public class GenerateCommand implements Runnable {
             if (pretty) {
                 prettyPrint(grid);
             } else if (csv) {
-                csvPrint(grid);
+                tabularPrint(grid, COMMA);
+            } else if (tsv) {
+                tabularPrint(grid, TAB);
             } else {
                 basicPrint(grid);
             }
@@ -87,10 +93,10 @@ public class GenerateCommand implements Runnable {
         }
     }
 
-    public void csvPrint(String[][] grid) {
+    public void tabularPrint(String[][] grid, String separator) {
         for (String[] row : grid) {
             for (int i = 0; i < row.length; i++) {
-                System.out.printf("%s", i == row.length - 1 ? row[i] + LINE_BREAK : row[i] + COMMA);
+                System.out.printf("%s", i == row.length - 1 ? row[i] + LINE_BREAK : row[i] + separator);
             }
         }
     }
