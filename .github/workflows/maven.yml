@@ -54,7 +54,7 @@ jobs:
             ./target/tambola-gen-*
           draft: true
           allowUpdates: true
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           replacesArtifacts: false
 
 
