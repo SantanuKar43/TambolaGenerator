@@ -2,13 +2,12 @@ package com.github.santanukar43.command;
 
 import com.github.santanukar43.core.Generator;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import picocli.CommandLine;
 
-@CommandLine.Command(name = "tambola-gen",
-        version = "1.0",
-        mixinStandardHelpOptions = true,
-        description = "This is a simple CLI application to generate a Tambola card.")
+@CommandLine.Command(name = "tambola-gen", version = "1.0", mixinStandardHelpOptions = true, description = "This is a"
+        + " simple CLI application to generate a Tambola card.")
 public class GenerateCommand implements Runnable {
     private static final String COMMA = ",";
     private static final String LINE_BREAK = "\n";
@@ -16,22 +15,40 @@ public class GenerateCommand implements Runnable {
     private static final String DEFAULT_COLUMNS = "9";
     private static final String DEFAULT_NUMBERS_PER_ROW = "5";
 
+    @CommandLine.Option(names = "-n",
+            description = "Number of cards to print",
+            defaultValue = "1",
+            showDefaultValue = CommandLine.Help.Visibility.ALWAYS)
+    private int count;
+
     @CommandLine.Option(names = "--pretty", description = "Pretty print")
     private boolean pretty;
 
     @CommandLine.Option(names = "--csv", description = "CSV print")
     private boolean csv;
 
-    @CommandLine.Option(names = {"-r", "--rows"}, description = "Number of rows, defaults to "
-            + DEFAULT_ROWS, defaultValue = DEFAULT_ROWS, hideParamSyntax = true)
+    @CommandLine.Option(names = {"-r",
+            "--rows"},
+            description = "Number of rows",
+            defaultValue = DEFAULT_ROWS,
+            hideParamSyntax = true,
+            showDefaultValue = CommandLine.Help.Visibility.ALWAYS)
     private int rows;
 
-    @CommandLine.Option(names = {"-c", "--cols"}, description = "Number of columns, defaults to "
-            + DEFAULT_COLUMNS, defaultValue = DEFAULT_COLUMNS, hideParamSyntax = true)
+    @CommandLine.Option(names = {"-c",
+            "--cols"},
+            description = "Number of columns",
+            defaultValue = DEFAULT_COLUMNS,
+            hideParamSyntax = true,
+            showDefaultValue = CommandLine.Help.Visibility.ALWAYS)
     private int cols;
 
-    @CommandLine.Option(names = "--numsPerRow", description = "Numbers per row, defaults to "
-            + DEFAULT_NUMBERS_PER_ROW, defaultValue = DEFAULT_NUMBERS_PER_ROW, hideParamSyntax = true)
+    @CommandLine.Option(names = "--numsPerRow",
+            description = "Numbers per row",
+            defaultValue =
+            DEFAULT_NUMBERS_PER_ROW,
+            hideParamSyntax = true,
+            showDefaultValue = CommandLine.Help.Visibility.ALWAYS)
     private int numsPerRow;
 
     private final Generator generator;
@@ -42,20 +59,23 @@ public class GenerateCommand implements Runnable {
 
     @Override
     public void run() {
-        String[][] grid = generator.generateGrid(rows, cols, numsPerRow);
-        if (pretty) {
-            prettyPrint(grid);
-        } else if (csv) {
-            csvPrint(grid);
-        } else {
-            basicPrint(grid);
+        while (count-- > 0) {
+            String[][] grid = generator.generateGrid(rows, cols, numsPerRow);
+            if (pretty) {
+                prettyPrint(grid);
+            } else if (csv) {
+                csvPrint(grid);
+            } else {
+                basicPrint(grid);
+            }
+            System.out.println();
         }
     }
 
     public void basicPrint(String[][] grid) {
-        for (String[] row : grid) {
-            System.out.println(Arrays.toString(row));
-        }
+        System.out.println("[" +
+                Arrays.stream(grid).map(Arrays::toString).collect(Collectors.joining(",\n"))
+                + "]");
     }
 
     public void prettyPrint(String[][] grid) {
