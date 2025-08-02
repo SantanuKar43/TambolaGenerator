@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-14]
+        os: [macos-14, windows-latest, ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -32,19 +32,19 @@ jobs:
         run: mvn clean package -Pnative
 
       - name: Run and validate
-        run: ./target/tambola-gen --help
+        run: ./target/tambola-gen${{ runner.os == 'Windows' && '.exe' || '' }} --help
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: tambola-gen-${{ matrix.os == 'macos-14' && 'arm64' || 'amd64' }}
-          path: |
-            ./target/tambola-gen
+          name: tambola-gen-${{ runner.os == 'macOS' && 'arm64' || (runner.os == 'Windows' && 'windows' || 'linux') }}
+          path: ./target/tambola-gen${{ runner.os == 'Windows' && '.exe' || '' }}
 
       - name: Rename artifact
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          mv ./target/tambola-gen ./target/tambola-gen-${{ matrix.os == 'macos-14' && 'arm64' || 'amd64' }}
+          mv ./target/tambola-gen${{ runner.os == 'Windows' && '.exe' || '' }} \
+             ./target/tambola-gen-${{ runner.os == 'macOS' && 'arm64' || (runner.os == 'Windows' && 'windows' || 'linux') }}${{ runner.os == 'Windows' && '.exe' || '' }}
 
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/v')
