@@ -6,6 +6,8 @@ The default generated card follows Housie or UK Bingo rules:
 
 ![img.png](samplecard.png)
 
+Reference: https://en.wikipedia.org/wiki/Bingo_card
+
 #### Prerequisites
 
 - Java 21 or higher (for JAR version)
