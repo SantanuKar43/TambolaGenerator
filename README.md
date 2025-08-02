@@ -2,11 +2,18 @@ This is a simple CLI application to generate a Tambola card.
 The default generated card follows Housie or UK Bingo rules:
 - The cards contain 3 rows and 9 columns. 
 - Each row contains five numbers and four blank spaces randomly distributed along the row. 
-- Numbers are apportioned by column (1–9, 10–19, 20–29, 30–39, 40–49, 50–59, 60–69, 70–79 and 80–90)
+- Numbers are apportioned by column (1–10, 11–20, 21–30, 31–40, 41–50, 51–60, 61–70, 71–80 and 81–90)
+
+The generator algorithm does it in 2 passes:
+- first marks cells randomly to be left empty
+- fills in random numbers in a columnwise manner in the cells not marked empty 
+
 
 ![img.png](samplecard.png)
 
-Reference: https://en.wikipedia.org/wiki/Bingo_card
+References:
+https://en.wikipedia.org/wiki/Bingo_(British_version)
+https://en.wikipedia.org/wiki/Bingo_card
 
 #### Prerequisites
 
