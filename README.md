@@ -4,14 +4,14 @@ The default generated card follows Housie or UK Bingo rules:
 - Each row contains five numbers and four blank spaces randomly distributed along the row. 
 - Numbers are apportioned by column (1–10, 11–20, 21–30, 31–40, 41–50, 51–60, 61–70, 71–80 and 81–90)
 
+![img.png](samplecard.png)
+
 The grid generation follows a two-pass algorithm:
 
 - Pass 1: For each row, it randomly marks a fixed number of cells (based on numsPerRow) as blanks, ensuring that at least one number remains per column.
 
 - Pass 2: It then fills the remaining (non-blank) cells column by column using unique random numbers from predefined ranges specific to each column, ensuring that values are sorted within the column.
 
-
-![img.png](samplecard.png)
 
 References:
 - https://en.wikipedia.org/wiki/Bingo_(British_version)
