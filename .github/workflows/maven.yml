@@ -44,7 +44,7 @@ jobs:
           path: ./target/tambola-gen${{ runner.os == 'Windows' && '.exe' || '' }}
 
       - name: Rename artifact
-        if: startsWith(github.ref, 'refs/tags/v')
+#        if: startsWith(github.ref, 'refs/tags/v')
         run: |
           mv ./target/tambola-gen${{ runner.os == 'Windows' && '.exe' || '' }} \
              ./target/tambola-gen-${{ runner.os == 'macOS' && 'arm64' || (runner.os == 'Windows' && 'windows' || 'linux') }}${{ runner.os == 'Windows' && '.exe' || '' }}
