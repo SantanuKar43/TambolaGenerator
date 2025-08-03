@@ -53,8 +53,8 @@ jobs:
 #        if: startsWith(github.ref, 'refs/tags/v')
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
+          tag: v1.0.0
+          name: Release v1.0.0
           artifacts: ./target/tambola-gen-*
           allowUpdates: true
           replacesArtifacts: false
