@@ -7,7 +7,7 @@ on:
     tags:
       - 'v*'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main"]
 
 jobs:
   build:
@@ -45,6 +45,11 @@ jobs:
         run: |
           mv ./target/tambola-gen${{ runner.os == 'Windows' && '.exe' || '' }} \
              ./target/tambola-gen-${{ runner.os == 'macOS' && 'arm64' || (runner.os == 'Windows' && 'windows' || 'linux') }}${{ runner.os == 'Windows' && '.exe' || '' }}
+
+      - name: Debug GITHUB_TOKEN
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "Token is available"
 
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/v')
