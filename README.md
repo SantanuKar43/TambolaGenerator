@@ -36,8 +36,9 @@ and add **Environment variables**: `GRAALVM_HOME=/Library/Java/JavaVirtualMachin
 
 Then run maven goal: `mvn clean package`
 
+#### Install
 ```bash
-#install
+
 sudo cp ./target/tambola-gen /usr/local/bin/
 ```
 
