@@ -1,7 +1,10 @@
 package com.github.santanukar43.command;
 
 import com.github.santanukar43.core.Generator;
+import com.github.santanukar43.core.TambolaGrid;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import picocli.CommandLine;
@@ -63,8 +66,14 @@ public class GenerateCommand implements Runnable {
 
     @Override
     public void run() {
+        Set<TambolaGrid> generatedGrids = new HashSet<>();
         while (count-- > 0) {
-            String[][] grid = generator.generateGrid(rows, cols, numsPerRow);
+            TambolaGrid grid = generator.generateGrid(rows, cols, numsPerRow);
+            if (generatedGrids.contains(grid)) {
+                continue;
+            }
+            generatedGrids.add(grid);
+
             if (pretty) {
                 prettyPrint(grid);
             } else if (csv) {
@@ -78,14 +87,14 @@ public class GenerateCommand implements Runnable {
         }
     }
 
-    public void basicPrint(String[][] grid) {
+    public void basicPrint(TambolaGrid grid) {
         System.out.println("[" +
-                Arrays.stream(grid).map(Arrays::toString).collect(Collectors.joining(",\n"))
+                Arrays.stream(grid.getGrid()).map(Arrays::toString).collect(Collectors.joining(",\n"))
                 + "]");
     }
 
-    public void prettyPrint(String[][] grid) {
-        for (String[] row : grid) {
+    public void prettyPrint(TambolaGrid grid) {
+        for (String[] row : grid.getGrid()) {
             for (String cell : row) {
                 System.out.printf("%-4s", StringUtils.isBlank(cell) ? "." : cell);
             }
@@ -93,8 +102,8 @@ public class GenerateCommand implements Runnable {
         }
     }
 
-    public void tabularPrint(String[][] grid, String separator) {
-        for (String[] row : grid) {
+    public void tabularPrint(TambolaGrid grid, String separator) {
+        for (String[] row : grid.getGrid()) {
             for (int i = 0; i < row.length; i++) {
                 System.out.printf("%s", i == row.length - 1 ? row[i] + LINE_BREAK : row[i] + separator);
             }

@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.apache.commons.lang3.StringUtils;
 
 public class Generator {
-    public String[][] generateGrid(int rows, int cols, int numsPerRow) {
+    public TambolaGrid generateGrid(int rows, int cols, int numsPerRow) {
         if (rows > 10) {
             throw new IllegalArgumentException("More than 10 rows would break Tambola card rules");
         }
@@ -42,7 +42,7 @@ public class Generator {
                 }
             }
         }
-        return grid;
+        return new TambolaGrid(grid);
     }
 
     private List<List<Integer>> getAvailableNumbers(int cols) {

@@ -12,8 +12,8 @@ class GeneratorTest {
     private final Generator generator = new Generator();
     @Test
     public void sanityTest () {
-        for (int i = 0; i < 5000; i++) {
-            assertTrue(isValid(generator.generateGrid(3, 9, 5)));
+        for (int i = 0; i < 10000; i++) {
+            assertTrue(isValid(generator.generateGrid(3, 9, 5).getGrid()));
         }
     }
 
